@@ -1,11 +1,50 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Navbar from "./Navbar";
-function Dashboard() {
+import Home from "./Home";
+import About from "./About";
+import Solutions from "./Solutions";
+import Why from "./Why";
+import How from "./How";
+import Jangkauan from "./Jangkauan";
+import Footer from "./Footer";
+
+function Page() {
+  const [activeSection, setActiveSection] = useState("beranda");
+
+  const renderSection = () => {
+    switch (activeSection) {
+      case "beranda":
+        return <Home />;
+      case "tentang-kami":
+        return <About />;
+      case "solusi":
+        return <Solutions />;
+      case "mengapa-kami":
+        return <Why />;
+      case "cara-kerja":
+        return <How />;
+      case "jangkauan":
+        return <Jangkauan />;
+      default:
+        return <Home />;
+    }
+  };
+
   return (
-    <div>
-      <Navbar />
-    </div>
+    <main className="min-h-screen bg-white">
+      <Navbar
+        activeSection={activeSection}
+        onSectionChange={setActiveSection}
+      />
+
+      {/* Dynamic Content */}
+      <div className="transition-all duration-300">{renderSection()}</div>
+
+      <Footer />
+    </main>
   );
 }
 
-export default Dashboard;
+export default Page;

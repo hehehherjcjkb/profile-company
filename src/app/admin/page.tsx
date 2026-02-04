@@ -5,7 +5,9 @@ function page() {
   return (
     <>
 
-   <Header/>
+   <div>
+    <Header/>
+   </div>
    
     </>
   );

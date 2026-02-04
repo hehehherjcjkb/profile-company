@@ -44,18 +44,7 @@ const LoginPage = () => {
       <div className="z-10 w-full max-w-105 bg-white rounded-4xl shadow-2xl p-8 lg:p-10">
         <h2 className="text-2xl font-bold text-[#171717] mb-6">Login</h2>
 
-        {/* Demo Credentials Alert */}
-        <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4 mb-8">
-          <p className="text-blue-600 font-bold text-sm mb-2">
-            Demo Credentials:
-          </p>
-          <p className="text-blue-500 text-sm">
-            Email: <span className="font-semibold">admn@gmaill.com</span>
-          </p>
-          <p className="text-blue-500 text-sm">
-            Password: <span className="font-semibold">admin</span>
-          </p>
-        </div>
+        
 
         <form action={action} className="space-y-5">
           {/* Email Field */}

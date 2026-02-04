@@ -1,59 +1,65 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
-const Navbar = () => {
+interface NavbarProps {
+  activeSection: string;
+  onSectionChange: (section: string) => void;
+}
+
+const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
+  const menuItems = [
+    { id: "beranda", label: "Beranda" },
+    { id: "tentang-kami", label: "Tentang Kami" },
+    { id: "solusi", label: "Solusi & Ekosistem" },
+    { id: "mengapa-kami", label: "Mengapa Kami" },
+    { id: "cara-kerja", label: "Cara Kerja" },
+    { id: "jangkauan", label: "Jangkauan" },
+  ];
+
   return (
     <nav className="sticky top-0 z-50 w-full bg-white shadow-sm border-b border-gray-100 flex items-center justify-between px-10 py-5">
       {/* Logo Section */}
-      <div className="flex items-center gap-3">
-        <div className="w-11 h-11 bg-[#1e40af] rounded-full flex items-center justify-center">
-          <span className="text-white font-bold text-xl">M</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="text-[#171717] font-bold text-lg leading-tight">
-            PT MES
-          </span>
-          <span className="text-gray-500 text-[10px] font-semibold uppercase tracking-tight">
-            Media Eduka Sentosa
-          </span>
+      <div
+        className="flex items-center gap-3 cursor-pointer"
+        onClick={() => onSectionChange("beranda")}
+      >
+        <div className="w-32 h-auto">
+          <Image
+            src="/Asset 2.jpg"
+            alt="PT MES Logo"
+            width={128}
+            height={48}
+            className="w-full h-auto"
+            priority
+          />
         </div>
       </div>
 
       {/* Navigation Links */}
       <div className="hidden lg:flex items-center gap-10">
-        <Link
-          href="/"
-          className="text-gray-500 hover:text-[#1e40af] font-medium transition-colors"
-        >
-          Beranda
-        </Link>
-        <Link
-          href="#tentang-kami"
-          className="text-gray-500 hover:text-[#1e40af] font-medium transition-colors"
-        >
-          Tentang Kami
-        </Link>
-        <Link
-          href="#solusi"
-          className="text-gray-500 hover:text-[#1e40af] font-medium transition-colors"
-        >
-          Solusi & Ekosistem
-        </Link>
-        <Link
-          href="#mengapa-kami"
-          className="text-gray-500 hover:text-[#1e40af] font-medium transition-colors"
-        >
-          Mengapa Kami
-        </Link>
-        <Link
-          href="#cara-kerja"
-          className="text-gray-500 hover:text-[#1e40af] font-medium transition-colors"
-        >
-          Cara Kerja
-        </Link>
-        <Link href="#jangkauan" className="text-[#1e40af] font-bold">
-          Jangkauan
-        </Link>
+        {menuItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => onSectionChange(item.id)}
+            className={`font-medium transition-all duration-300 relative group py-2 ${
+              activeSection === item.id
+                ? "text-[#1e40af] font-bold"
+                : "text-gray-500 hover:text-[#1e40af]"
+            }`}
+          >
+            {item.label}
+            <span
+              className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#1e40af] transition-all duration-300 origin-left ${
+                activeSection === item.id
+                  ? "scale-x-100"
+                  : "scale-x-0 group-hover:scale-x-100"
+              }`}
+            ></span>
+          </button>
+        ))}
       </div>
 
       {/* Action Buttons */}
