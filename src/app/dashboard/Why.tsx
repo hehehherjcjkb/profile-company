@@ -25,10 +25,10 @@ const Why = () => {
         "Koordinasi lebih mudah dan efisien",
         "Satu tim pendampingan profesional",
       ],
-      color: "blue",
-      bgColor: "bg-blue-50/50",
-      iconColor: "bg-blue-600",
-      accentColor: "text-blue-600",
+      color: "gray",
+      bgColor: "bg-gray-50",
+      iconColor: "bg-black",
+      accentColor: "text-black",
     },
     {
       id: "02",
@@ -40,10 +40,10 @@ const Why = () => {
         "Format standar dan sistematis",
         "Siap untuk audit dan pelaporan",
       ],
-      color: "green",
-      bgColor: "bg-emerald-50/50",
-      iconColor: "bg-emerald-600",
-      accentColor: "text-emerald-600",
+      color: "gray-dark",
+      bgColor: "bg-gray-100",
+      iconColor: "bg-gray-800",
+      accentColor: "text-gray-800",
     },
     {
       id: "03",
@@ -55,10 +55,10 @@ const Why = () => {
         "Paket dapat disesuaikan dengan budget",
         "Transparansi biaya yang jelas",
       ],
-      color: "purple",
-      bgColor: "bg-purple-50/50",
-      iconColor: "bg-purple-600",
-      accentColor: "text-purple-600",
+      color: "black",
+      bgColor: "bg-gray-50",
+      iconColor: "bg-gray-900",
+      accentColor: "text-gray-900",
     },
     {
       id: "04",
@@ -70,22 +70,22 @@ const Why = () => {
         "Program tahunan berkelanjutan",
         "Konsultasi strategis jangka panjang",
       ],
-      color: "orange",
-      bgColor: "bg-orange-50/50",
-      iconColor: "bg-orange-600",
-      accentColor: "text-orange-600",
+      color: "gray-light",
+      bgColor: "bg-gray-100",
+      iconColor: "bg-gray-600",
+      accentColor: "text-gray-600",
     },
   ];
 
   return (
     <div className="w-full bg-white">
       {/* Hero Section */}
-      <section className="bg-[#1e40af] text-white pt-32 pb-24 text-center">
+      <section className="bg-black text-white pt-32 pb-24 text-center">
         <div className="container mx-auto px-6">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
             Mengapa Memilih PT MES?
           </h1>
-          <p className="text-blue-100 text-lg font-medium opacity-90 max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg font-medium opacity-90 max-w-2xl mx-auto">
             Kami berfokus pada hasil yang terukur dan administrasi yang tertib
             untuk mendukung kemajuan sekolah di Indonesia.
           </p>
@@ -180,7 +180,7 @@ const Why = () => {
                 key={i}
                 className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all group"
               >
-                <div className="w-12 h-12 bg-white rounded-2xl border border-gray-100 text-[#1e40af] flex items-center justify-center mb-6 group-hover:bg-[#10b981] group-hover:text-white transition-all">
+                <div className="w-12 h-12 bg-white rounded-2xl border border-gray-100 text-black flex items-center justify-center mb-6 group-hover:bg-black group-hover:text-white transition-all">
                   {adv.icon}
                 </div>
                 <h4 className="text-lg font-bold text-[#171717] mb-3">
@@ -198,9 +198,9 @@ const Why = () => {
       {/* Quote Block */}
       <section className="py-24">
         <div className="container mx-auto px-6">
-          <div className="bg-[#1e40af] rounded-[48px] p-12 lg:p-20 text-center relative overflow-hidden">
+          <div className="bg-black rounded-[48px] p-12 lg:p-20 text-center relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 blur-3xl rounded-full"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/5 blur-3xl rounded-full"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-3xl rounded-full"></div>
 
             <div className="relative z-10 max-w-3xl mx-auto space-y-8">
               <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-xl text-white">
@@ -213,7 +213,7 @@ const Why = () => {
                 profesional yang siap mendampingi perjalanan pendidikan Anda."
               </p>
               <div className="pt-4 flex flex-col items-center">
-                <div className="w-12 h-1 bg-[#10b981] rounded-full mb-4"></div>
+                <div className="w-12 h-1 bg-white rounded-full mb-4"></div>
                 <p className="text-white font-bold tracking-widest uppercase text-xs">
                   PT Media Eduka Sentosa
                 </p>

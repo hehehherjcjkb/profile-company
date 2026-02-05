@@ -27,9 +27,9 @@ const How = () => {
         "Asesmen kondisi eksisting",
         "Identifikasi prioritas kebutuhan",
       ],
-      color: "blue",
-      iconColor: "bg-blue-600",
-      lightBg: "bg-blue-50/30",
+      color: "gray",
+      iconColor: "bg-black",
+      lightBg: "bg-gray-50/50",
     },
     {
       id: "02",
@@ -41,9 +41,9 @@ const How = () => {
         "Presentasi dan diskusi penyesuaian",
         "Estimasi biaya dan timeline",
       ],
-      color: "green",
-      iconColor: "bg-emerald-600",
-      lightBg: "bg-emerald-50/30",
+      color: "gray-dark",
+      iconColor: "bg-gray-800",
+      lightBg: "bg-gray-100/50",
     },
     {
       id: "03",
@@ -55,9 +55,9 @@ const How = () => {
         "Administrasi legalitas lengkap",
         "Penyiapan dokumen pelaporan awal",
       ],
-      color: "purple",
-      iconColor: "bg-purple-600",
-      lightBg: "bg-purple-50/30",
+      color: "black",
+      iconColor: "bg-gray-900",
+      lightBg: "bg-gray-50/50",
     },
     {
       id: "04",
@@ -69,9 +69,9 @@ const How = () => {
         "Monitoring dan evaluasi berkala",
         "Support teknis dan konsultasi",
       ],
-      color: "orange",
-      iconColor: "bg-orange-600",
-      lightBg: "bg-orange-50/30",
+      color: "gray-light",
+      iconColor: "bg-gray-600",
+      lightBg: "bg-gray-100/50",
     },
     {
       id: "05",
@@ -83,9 +83,9 @@ const How = () => {
         "Dokumentasi visual dan naratif",
         "Evaluasi akhir dan saran perbaikan",
       ],
-      color: "pink",
-      iconColor: "bg-pink-600",
-      lightBg: "bg-pink-50/30",
+      color: "gray",
+      iconColor: "bg-gray-700",
+      lightBg: "bg-gray-50/50",
     },
   ];
 
@@ -115,12 +115,12 @@ const How = () => {
   return (
     <div className="w-full bg-white">
       {/* Hero Section */}
-      <section className="bg-[#1e40af] text-white pt-32 pb-24 text-center">
+      <section className="bg-black text-white pt-32 pb-24 text-center">
         <div className="container mx-auto px-6">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
             Cara Kerja Kami
           </h1>
-          <p className="text-blue-100 text-lg font-medium opacity-90 max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg font-medium opacity-90 max-w-2xl mx-auto">
             Proses kolaborasi yang terstruktur, transparan, dan profesional
             untuk memastikan hasil yang optimal bagi sekolah Anda.
           </p>
@@ -207,7 +207,7 @@ const How = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
             {principles.map((prinsip, i) => (
               <div key={i} className="flex flex-col items-center space-y-4">
-                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-[#1e40af] shadow-sm border border-gray-100 hover:rotate-6 transition-transform">
+                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-black shadow-sm border border-gray-100 hover:rotate-6 transition-transform">
                   {prinsip.icon}
                 </div>
                 <h4 className="text-lg font-bold text-[#171717]">
@@ -224,7 +224,7 @@ const How = () => {
 
       {/* Final Contact Suggestion */}
       <section className="py-20 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-[#1e40af] rounded-full text-xs font-black uppercase tracking-widest mb-8">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-black rounded-full text-xs font-black uppercase tracking-widest mb-8">
           <MessageCircle size={14} />
           Mulai Kerja Sama
         </div>

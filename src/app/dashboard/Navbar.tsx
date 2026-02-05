@@ -44,19 +44,17 @@ const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
           <button
             key={item.id}
             onClick={() => onSectionChange(item.id)}
-            className={`font-medium transition-all duration-300 relative group py-2 ${
-              activeSection === item.id
-                ? "text-[#1e40af] font-bold"
-                : "text-gray-500 hover:text-[#1e40af]"
-            }`}
+            className={`font-medium transition-all duration-300 relative group py-2 ${activeSection === item.id
+                ? "text-black font-bold"
+                : "text-gray-500 hover:text-black"
+              }`}
           >
             {item.label}
             <span
-              className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#1e40af] transition-all duration-300 origin-left ${
-                activeSection === item.id
+              className={`absolute bottom-0 left-0 w-full h-0.5 bg-black transition-all duration-300 origin-left ${activeSection === item.id
                   ? "scale-x-100"
                   : "scale-x-0 group-hover:scale-x-100"
-              }`}
+                }`}
             ></span>
           </button>
         ))}
@@ -66,7 +64,7 @@ const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
       <div className="flex items-center gap-5">
         <Link
           href="/login"
-          className="flex items-center gap-2 bg-[#1e3a8a] text-white px-8 py-2.5 rounded-full font-bold text-sm hover:bg-[#1e3a8a]/90 transition-all shadow-md active:scale-95"
+          className="flex items-center gap-2 bg-black text-white px-8 py-2.5 rounded-full font-bold text-sm hover:bg-gray-800 transition-all shadow-md active:scale-95"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +85,7 @@ const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
         </Link>
         <Link
           href="#contact"
-          className="bg-[#059669] text-white px-8 py-2.5 rounded-2xl font-bold text-sm hover:bg-[#059669]/90 transition-all shadow-md active:scale-95"
+          className="bg-gray-700 text-white px-8 py-2.5 rounded-2xl font-bold text-sm hover:bg-gray-800 transition-all shadow-md active:scale-95"
         >
           Hubungi Kami
         </Link>

@@ -24,8 +24,8 @@ const Jangkauan = () => {
         "Alat peraga edukatif (APE)",
         "Media publikasi untuk sekolah",
       ],
-      color: "bg-rose-500",
-      lightBg: "bg-rose-50/50",
+      color: "bg-gray-700",
+      lightBg: "bg-gray-50",
     },
     {
       title: "SD / MI",
@@ -38,8 +38,8 @@ const Jangkauan = () => {
         "Bimbingan teknis kurikulum",
         "Sistem informasi akademik",
       ],
-      color: "bg-blue-600",
-      lightBg: "bg-blue-50/50",
+      color: "bg-black",
+      lightBg: "bg-gray-100",
     },
     {
       title: "SMP / MTs",
@@ -52,8 +52,8 @@ const Jangkauan = () => {
         "Pelatihan guru & tenaga kependidikan",
         "Platform digital learning",
       ],
-      color: "bg-emerald-600",
-      lightBg: "bg-emerald-50/50",
+      color: "bg-gray-800",
+      lightBg: "bg-gray-50",
     },
     {
       title: "SMA / MA",
@@ -66,8 +66,8 @@ const Jangkauan = () => {
         "Program unggulan dan inovasi",
         "Publikasi digital sekolah",
       ],
-      color: "bg-purple-600",
-      lightBg: "bg-purple-50/50",
+      color: "bg-gray-900",
+      lightBg: "bg-gray-100",
     },
     {
       title: "SMK",
@@ -80,8 +80,8 @@ const Jangkauan = () => {
         "Sistem manajemen prakerin",
         "Branding dan publikasi sekolah",
       ],
-      color: "bg-orange-600",
-      lightBg: "bg-orange-50/50",
+      color: "bg-gray-600",
+      lightBg: "bg-gray-50",
     },
   ];
 
@@ -100,12 +100,12 @@ const Jangkauan = () => {
   return (
     <div className="w-full bg-white">
       {/* Hero Section */}
-      <section className="bg-[#1e40af] text-white pt-32 pb-24 text-center">
+      <section className="bg-black text-white pt-32 pb-24 text-center">
         <div className="container mx-auto px-6">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
             Jangkauan Layanan Kami
           </h1>
-          <p className="text-blue-100 text-lg font-medium opacity-90 max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg font-medium opacity-90 max-w-2xl mx-auto">
             Melayani semua jenjang pendidikan dari PAUD hingga SMA/SMK di
             seluruh wilayah Indonesia.
           </p>
@@ -154,8 +154,8 @@ const Jangkauan = () => {
                   <p className="text-gray-500 font-medium text-sm leading-relaxed">
                     {level.desc}
                   </p>
-                  <div className="mt-4 flex items-center gap-2 text-[#1e40af]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1e40af]"></span>
+                  <div className="mt-4 flex items-center gap-2 text-black">
+                    <span className="w-1.5 h-1.5 rounded-full bg-black"></span>
                     <span className="text-[10px] font-black uppercase tracking-widest">
                       Layanan Berkelanjutan
                     </span>
@@ -200,9 +200,9 @@ const Jangkauan = () => {
           </p>
 
           <div className="max-w-4xl mx-auto bg-white p-12 rounded-[48px] shadow-sm border border-gray-100 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-[#1e40af]"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-black"></div>
 
-            <div className="flex items-center justify-center gap-2 text-[#1e40af] mb-12">
+            <div className="flex items-center justify-center gap-2 text-black mb-12">
               <MapPin size={24} />
               <span className="text-xl font-extrabold tracking-tight">
                 Area Layanan
@@ -213,9 +213,9 @@ const Jangkauan = () => {
               {locations.map((loc, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-3 bg-gray-50 px-6 py-4 rounded-2xl border border-gray-100 hover:border-[#10b981]/20 group transition-all"
+                  className="flex items-center gap-3 bg-gray-50 px-6 py-4 rounded-2xl border border-gray-100 hover:border-black/20 group transition-all"
                 >
-                  <div className="w-2 h-2 rounded-full bg-[#10b981] group-hover:scale-150 transition-transform"></div>
+                  <div className="w-2 h-2 rounded-full bg-gray-800 group-hover:scale-150 transition-transform"></div>
                   <span className="text-sm font-bold text-gray-600">{loc}</span>
                 </div>
               ))}
@@ -231,7 +231,7 @@ const Jangkauan = () => {
 
       {/* Final CTA Visual */}
       <section className="py-24 text-center">
-        <div className="w-20 h-20 bg-blue-50 text-[#1e40af] rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce-slow">
+        <div className="w-20 h-20 bg-gray-100 text-black rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce-slow">
           <Globe2 size={40} />
         </div>
         <h2 className="text-3xl font-extrabold text-[#171717] mb-6 tracking-tight">

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import {
   Book,
   UserCheck,
@@ -15,13 +16,34 @@ import {
 } from "lucide-react";
 
 const Solutions = () => {
+  // Helper to map color names to Tailwind classes
+  const getBrandStyles = (color: string) => {
+    switch (color) {
+      case "blue":
+        return { accent: "bg-gray-800", icon: "bg-gray-100 text-black" };
+      case "purple":
+        return { accent: "bg-black", icon: "bg-black text-white" };
+      case "green":
+        return { accent: "bg-gray-600", icon: "bg-gray-200 text-black" };
+      case "teal":
+        return { accent: "bg-gray-400", icon: "bg-gray-50 text-black" };
+      case "orange":
+        return { accent: "bg-gray-900", icon: "bg-gray-300 text-black" };
+      case "pink":
+        return { accent: "bg-gray-500", icon: "bg-gray-100 text-black" };
+      default:
+        return { accent: "bg-gray-500", icon: "bg-gray-100 text-black" };
+    }
+  };
+
   const brands = [
     {
       title: "Nawasena Publishing",
       icon: <Book size={24} />,
       desc: "Penerbit buku pendidikan dan konten pembelajaran berkualitas untuk semua jenjang.",
-      target: "Target:  PAUD–SMA/SMK",
+      target: "Target: PAUD–SMA/SMK",
       color: "blue",
+      qrCode: "qr-mentorbox.png",
     },
     {
       title: "Q Personality",
@@ -29,6 +51,7 @@ const Solutions = () => {
       desc: "Layanan asesmen psikologi dan deteksi potensi untuk pemetaan bakat minat peserta didik.",
       target: "Target: SD–SMA/SMK",
       color: "purple",
+      qrCode: "qr-qpersonality.png",
     },
     {
       title: "Mentorbox (Kolaborasi)",
@@ -36,13 +59,15 @@ const Solutions = () => {
       desc: "Platform pengembangan kapasitas, pelatihan, dan mentoring bagi tenaga pendidik profesional.",
       target: "Target: PAUD–SMK",
       color: "green",
+      qrCode: "qr-mentorbox.png",
     },
     {
       title: "MJD Software House (Kolaborasi)",
       icon: <Code2 size={24} />,
       desc: "Solusi pengembangan sistem informasi dan aplikasi digital custom untuk manajemen sekolah.",
-      target: "PAUD–SMA/SMK",
+      target: "Target: PAUD–SMA/SMK",
       color: "teal",
+      qrCode: "qr-mjd.png",
     },
     {
       title: "EDUVANTE",
@@ -50,6 +75,7 @@ const Solutions = () => {
       desc: "Program unggulan dan inovasi kurikulum untuk meningkatkan daya saing global sekolah.",
       target: "Target: PAUD–SMA/SMK",
       color: "orange",
+      qrCode: "qr-mentorbox.png",
     },
     {
       title: "MKD Digital Agency (Kolaborasi)",
@@ -57,19 +83,20 @@ const Solutions = () => {
       desc: "Layanan publikasi digital, branding sosial media, dan promosi strategis institusi pendidikan.",
       target: "Target: PAUD–SMA/SMK",
       color: "pink",
+      qrCode: "qr-nawasena.png",
     },
   ];
 
   return (
     <div className="w-full bg-white">
       {/* Hero Section */}
-      <section className="bg-[#1e40af] text-white pt-32 pb-24">
+      <section className="bg-black text-white pt-32 pb-24">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight">
               Ekosistem Solusi PT Media Eduka Sentosa
             </h1>
-            <p className="text-blue-100 text-lg font-medium opacity-90 max-w-2xl">
+            <p className="text-gray-400 text-lg font-medium opacity-90 max-w-2xl">
               Berbagai brand dan layanan strategis untuk memenuhi kebutuhan
               pendidikan sekolah secara komprehensif dan berkelanjutan.
             </p>
@@ -93,67 +120,84 @@ const Solutions = () => {
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
-            {brands.map((brand, i) => (
-              <div
-                key={i}
-                className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col group relative overflow-hidden"
-              >
-                {/* Visual Accent */}
+            {brands.map((brand, i) => {
+              const styles = getBrandStyles(brand.color);
+              return (
                 <div
-                  className={`absolute top-0 left-0 w-2 h-full 
-                  ${
-                    brand.color === "blue"
-                      ? "bg-blue-500"
-                      : brand.color === "purple"
-                        ? "bg-purple-500"
-                        : brand.color === "green"
-                          ? "bg-green-500"
-                          : brand.color === "teal"
-                            ? "bg-teal-500"
-                            : brand.color === "orange"
-                              ? "bg-orange-500"
-                              : "bg-pink-500"
-                  }`}
-                ></div>
-
-                <div
-                  className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 
-                  ${
-                    brand.color === "blue"
-                      ? "bg-blue-50 text-blue-500"
-                      : brand.color === "purple"
-                        ? "bg-purple-50 text-purple-500"
-                        : brand.color === "green"
-                          ? "bg-green-50 text-green-500"
-                          : brand.color === "teal"
-                            ? "bg-teal-50 text-teal-500"
-                            : brand.color === "orange"
-                              ? "bg-orange-50 text-orange-500"
-                              : "bg-pink-50 text-pink-500"
-                  }`}
+                  key={i}
+                  className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col group relative overflow-hidden"
                 >
-                  {brand.icon}
-                </div>
+                  {/* Visual Accent Strip */}
+                  <div
+                    className={`absolute top-0 left-0 w-2 h-full ${styles.accent}`}
+                  ></div>
 
-                <h3 className="text-2xl font-bold text-[#171717] mb-4 group-hover:text-[#1e40af] transition-colors">
-                  {brand.title}
-                </h3>
-                <p className="text-gray-500 font-medium text-sm leading-relaxed mb-6 grow">
-                  {brand.desc}
-                </p>
+                  {/* QR Code Area */}
+                  <div className="absolute top-8 right-8">
+                    <div className="w-20 h-20 bg-white rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center group-hover:border-black/20 transition-all overflow-hidden shadow-sm relative">
+                      {brand.qrCode ? (
+                        <>
+                          <Image
+                            src={brand.qrCode.startsWith('http') || brand.qrCode.startsWith('/') ? brand.qrCode : `/${brand.qrCode}`}
+                            alt={`QR Code ${brand.title}`}
+                            width={80}
+                            height={80}
+                            className="w-full h-full object-contain p-1 relative z-10"
+                            onError={(e) => {
+                              // If image fails, hide it
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                              // Show fallback text
+                              const fallback = target.parentElement?.querySelector('.fallback-text');
+                              if (fallback) fallback.classList.remove('hidden');
+                            }}
+                          />
+                          <div className="fallback-text hidden absolute inset-0 flex items-center justify-center bg-gray-50/80">
+                            <p className="text-[10px] font-bold text-gray-500 uppercase leading-tight text-center">
+                              IMAGE<br />NOT FOUND
+                            </p>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="text-center px-2">
+                          <p className="text-[10px] font-bold text-gray-400 uppercase leading-tight tracking-tighter">
+                            QR CODE<br />HERE
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
 
-                <div className="bg-gray-50/80 px-4 py-2 rounded-xl mb-8">
-                  <p className="text-[11px] font-black text-gray-400 uppercase tracking-widest">
-                    {brand.target}
+                  {/* Icon */}
+                  <div
+                    className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 ${styles.icon}`}
+                  >
+                    {brand.icon}
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="text-2xl font-bold text-[#171717] mb-4 group-hover:text-black transition-colors max-w-[calc(100%-100px)]">
+                    {brand.title}
+                  </h3>
+                  <p className="text-gray-500 font-medium text-sm leading-relaxed mb-6 grow">
+                    {brand.desc}
                   </p>
-                </div>
 
-                <button className="w-full py-4 bg-[#171717] text-white font-bold rounded-2xl flex items-center justify-center gap-2 group-hover:bg-[#1e40af] transition-all transform group-hover:-translate-y-1">
-                  Lihat Detail
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-            ))}
+                  {/* Target Label */}
+                  <div className="bg-gray-50/80 px-4 py-2 rounded-xl mb-8 border border-gray-100/50">
+                    <p className="text-[11px] font-black text-gray-400 uppercase tracking-widest">
+                      {brand.target}
+                    </p>
+                  </div>
+
+                  {/* Action Button */}
+                  <button className="w-full py-4 bg-[#171717] text-white font-bold rounded-2xl flex items-center justify-center gap-2 hover:bg-black transition-all transform group-hover:-translate-y-1">
+                    Lihat Detail
+                    <ChevronRight size={18} />
+                  </button>
+                </div>
+              );
+            })}
           </div>
 
           {/* Value Proposition Section */}
@@ -176,16 +220,16 @@ const Solutions = () => {
                 {
                   title: "Terukur",
                   icon: <LineChart size={32} />,
-                  desc: "Program terintegrasi dengan indikator keberhasilan yang jelas dan dapat dipantau.",
+                  desc: "Program terintegrasi dengan indikator keberhasilan yang jelas and dapat dipantau.",
                 },
                 {
                   title: "Fleksibel",
                   icon: <Settings2 size={32} />,
-                  desc: "Dapat disesuaikan dengan kebutuhan, prioritas, dan anggaran institusi.",
+                  desc: "Dapat disesuaikan dengan kebutuhan, prioritas, and anggaran institusi.",
                 },
               ].map((val, i) => (
                 <div key={i} className="space-y-6 flex flex-col items-center">
-                  <div className="w-20 h-20 bg-[#f8fafc] text-[#1e40af] rounded-4xl flex items-center justify-center shadow-sm border border-gray-100 hover:scale-110 transition-transform">
+                  <div className="w-20 h-20 bg-[#f8fafc] text-black rounded-4xl flex items-center justify-center shadow-sm border border-gray-100 hover:scale-110 transition-transform">
                     {val.icon}
                   </div>
                   <div>

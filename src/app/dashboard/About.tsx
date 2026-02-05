@@ -18,12 +18,12 @@ const About = () => {
   return (
     <div className="w-full min-h-screen bg-white">
       {/* Blue Hero Section */}
-      <section className="bg-[#1e40af] text-white pt-32 pb-24 text-center">
+      <section className="bg-black text-white pt-32 pb-24 text-center">
         <div className="container mx-auto px-6">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
             Tentang PT MES
           </h1>
-          <p className="text-blue-100/80 text-lg font-medium">
+          <p className="text-gray-400 text-lg font-medium">
             Partner terpercaya untuk solusi pendidikan terintegrasi di Indonesia
           </p>
         </div>
@@ -40,7 +40,7 @@ const About = () => {
               { val: "5", label: "Jenjang Pendidikan" },
             ].map((stat, i) => (
               <div key={i} className="space-y-1">
-                <p className="text-3xl font-black text-[#1e40af]">{stat.val}</p>
+                <p className="text-3xl font-black text-black">{stat.val}</p>
                 <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">
                   {stat.label}
                 </p>
@@ -68,7 +68,7 @@ const About = () => {
                 </p>
                 <p>
                   Sebagai bagian dari{" "}
-                  <span className="text-[#10b981] font-bold">Magau Group</span>,
+                  <span className="text-black font-bold">Magau Group</span>,
                   kami memiliki ekosistem lengkap yang mencakup berbagai aspek
                   kebutuhan sekolah—mulai dari konten pembelajaran, asesmen,
                   pengembangan kapasitas, hingga sistem digital dan publikasi.
@@ -88,25 +88,25 @@ const About = () => {
                   icon: <Users size={20} />,
                   label:
                     "Kepala sekolah, yayasan, dan pengambilan keputusan pendidikan",
-                  color: "blue",
+                  color: "gray",
                 },
                 {
                   title: "Jangkauan",
                   icon: <MapPin size={20} />,
                   label: "PAUD, SD/MI, SMP/MTs, SMA/MA, SMK",
-                  color: "teal",
+                  color: "black",
                 },
                 {
                   title: "Terpercaya",
                   icon: <ShieldCheck size={20} />,
                   label: "Dokumentasi lengkap dan tertib administrasi",
-                  color: "purple",
+                  color: "gray-dark",
                 },
                 {
                   title: "Inovatif",
                   icon: <Lightbulb size={20} />,
                   label: "Solusi modern yang terus berkembang",
-                  color: "orange",
+                  color: "gray-light",
                 },
               ].map((item, i) => (
                 <div
@@ -115,15 +115,14 @@ const About = () => {
                 >
                   <div
                     className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 
-                    ${
-                      item.color === "blue"
-                        ? "bg-blue-50 text-blue-500"
-                        : item.color === "teal"
-                          ? "bg-teal-50 text-teal-500"
-                          : item.color === "purple"
-                            ? "bg-purple-50 text-purple-500"
-                            : "bg-orange-50 text-orange-500"
-                    }`}
+                    ${item.color === "gray"
+                        ? "bg-gray-100 text-gray-600"
+                        : item.color === "black"
+                          ? "bg-black text-white"
+                          : item.color === "gray-dark"
+                            ? "bg-gray-200 text-gray-800"
+                            : "bg-gray-50 text-gray-400"
+                      }`}
                   >
                     {item.icon}
                   </div>
@@ -141,7 +140,7 @@ const About = () => {
       </section>
 
       {/* Focus Area Section */}
-      <section className="py-24 bg-[#f8fafc]">
+      <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <h2 className="text-3xl font-extrabold text-[#171717] mb-4">
             Area Fokus Kami
@@ -156,34 +155,34 @@ const About = () => {
                 title: "Program Pendidikan Terukur",
                 icon: <Target size={24} />,
                 desc: "Solusi yang dirancang dengan indikator keberhasilan yang jelas dan dapat diukur",
-                color: "blue",
+                color: "black",
               },
               {
                 title: "Administrasi Tertib",
                 icon: <ClipboardCheck size={24} />,
                 desc: "Dokumentasi lengkap dan sistematik untuk kebutuhan pelaporan dan audit",
-                color: "indigo",
+                color: "gray-dark",
               },
               {
                 title: "Solusi Fleksibel",
                 icon: <Zap size={24} />,
                 desc: "Dapat disesuaikan dengan kebutuhan dan karakteristik masing-masing sekolah",
-                color: "blue",
+                color: "black",
               },
               {
                 title: "Dukungan Pendampingan",
                 icon: <Handshake size={24} />,
                 desc: "Tim profesional yang siap memberikan konsultasi dan pendampingan berkelanjutan",
-                color: "indigo",
+                color: "gray-dark",
               },
             ].map((focus, i) => (
               <div
                 key={i}
-                className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm flex gap-6 items-start group hover:border-[#1e40af]/20 transition-all"
+                className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm flex gap-6 items-start group hover:border-black/20 transition-all"
               >
                 <div
                   className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 
-                  ${focus.color === "blue" ? "bg-blue-600 text-white" : "bg-[#1e3a8a] text-white"}`}
+                  ${focus.color === "black" ? "bg-black text-white" : "bg-gray-600 text-white"}`}
                 >
                   {focus.icon}
                 </div>
@@ -202,7 +201,7 @@ const About = () => {
       </section>
 
       {/* Visi Misi Section */}
-      <section className="bg-[#1e40af] text-white py-24">
+      <section className="bg-black text-white py-24">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
             {/* Visi */}
@@ -233,10 +232,10 @@ const About = () => {
                   "Berinovasi untuk menciptakan ekosistem pendidikan yang berkelanjutan",
                 ].map((misi, i) => (
                   <li key={i} className="flex gap-4 items-start group">
-                    <div className="w-6 h-6 rounded-full bg-[#10b981] flex items-center justify-center shrink-0 mt-1">
-                      <CheckCircle2 size={14} className="text-white" />
+                    <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 mt-1">
+                      <CheckCircle2 size={14} className="text-black" />
                     </div>
-                    <p className="text-blue-50 font-medium leading-relaxed group-hover:text-white transition-colors">
+                    <p className="text-gray-300 font-medium leading-relaxed group-hover:text-white transition-colors">
                       {misi}
                     </p>
                   </li>
@@ -252,7 +251,7 @@ const About = () => {
         <p className="text-gray-400 font-bold text-xs uppercase tracking-widest mb-4">
           Bagian dari
         </p>
-        <h3 className="text-3xl font-black text-[#10b981] mb-6">Magau Group</h3>
+        <h3 className="text-3xl font-black text-black mb-6">Magau Group</h3>
         <p className="text-gray-500 font-medium max-w-2xl mx-auto px-6 italic">
           "Didukung oleh jaringan perusahaan yang kuat untuk memberikan solusi
           pendidikan yang komprehensif"
