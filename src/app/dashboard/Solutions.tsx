@@ -14,6 +14,12 @@ import {
   Settings2,
   ChevronRight,
 } from "lucide-react";
+import EduvanteLogo from "../aset/Eduvante.png";
+import NawasenaLogo from "../aset/nawasena.png";
+import PersonalityLogo from "../aset/personality.jpeg";
+import MentorLogo from "../aset/mentor.png";
+import MJDLogo from "../aset/mjd_gambar.png";
+import MKDLogo from "../aset/MKD@300x.png";
 
 const Solutions = () => {
   // Helper to map color names to Tailwind classes
@@ -39,7 +45,15 @@ const Solutions = () => {
   const brands = [
     {
       title: "Nawasena Publishing",
-      icon: <Book size={24} />,
+      icon: (
+        <Image
+          src={NawasenaLogo}
+          alt="Nawasena Logo"
+          width={32}
+          height={32}
+          className="object-contain"
+        />
+      ),
       desc: "Penerbit buku pendidikan dan konten pembelajaran berkualitas untuk semua jenjang.",
       target: "Target: PAUD–SMA/SMK",
       color: "blue",
@@ -47,7 +61,15 @@ const Solutions = () => {
     },
     {
       title: "Q Personality",
-      icon: <UserCheck size={24} />,
+      icon: (
+        <Image
+          src={PersonalityLogo}
+          alt="Q Personality Logo"
+          width={32}
+          height={32}
+          className="object-contain"
+        />
+      ),
       desc: "Layanan asesmen psikologi dan deteksi potensi untuk pemetaan bakat minat peserta didik.",
       target: "Target: SD–SMA/SMK",
       color: "purple",
@@ -55,7 +77,15 @@ const Solutions = () => {
     },
     {
       title: "Mentorbox (Kolaborasi)",
-      icon: <GraduationCap size={24} />,
+      icon: (
+        <Image
+          src={MentorLogo}
+          alt="Mentorbox Logo"
+          width={32}
+          height={32}
+          className="object-contain"
+        />
+      ),
       desc: "Platform pengembangan kapasitas, pelatihan, dan mentoring bagi tenaga pendidik profesional.",
       target: "Target: PAUD–SMK",
       color: "green",
@@ -63,7 +93,15 @@ const Solutions = () => {
     },
     {
       title: "MJD Software House (Kolaborasi)",
-      icon: <Code2 size={24} />,
+      icon: (
+        <Image
+          src={MJDLogo}
+          alt="MJD Logo"
+          width={32}
+          height={32}
+          className="object-contain"
+        />
+      ),
       desc: "Solusi pengembangan sistem informasi dan aplikasi digital custom untuk manajemen sekolah.",
       target: "Target: PAUD–SMA/SMK",
       color: "teal",
@@ -71,7 +109,15 @@ const Solutions = () => {
     },
     {
       title: "EDUVANTE",
-      icon: <Target size={24} />,
+      icon: (
+        <Image
+          src={EduvanteLogo}
+          alt="Eduvante Logo"
+          width={32}
+          height={32}
+          className="object-contain"
+        />
+      ),
       desc: "Program unggulan dan inovasi kurikulum untuk meningkatkan daya saing global sekolah.",
       target: "Target: PAUD–SMA/SMK",
       color: "orange",
@@ -79,7 +125,15 @@ const Solutions = () => {
     },
     {
       title: "MKD Digital Agency (Kolaborasi)",
-      icon: <BarChart3 size={24} />,
+      icon: (
+        <Image
+          src={MKDLogo}
+          alt="MKD Logo"
+          width={32}
+          height={32}
+          className="object-contain"
+        />
+      ),
       desc: "Layanan publikasi digital, branding sosial media, dan promosi strategis institusi pendidikan.",
       target: "Target: PAUD–SMA/SMK",
       color: "pink",

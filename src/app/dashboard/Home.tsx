@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   BookOpen,
@@ -12,8 +12,23 @@ import {
   Mail,
   Phone,
 } from "lucide-react";
+import { getSiteContent, SiteContent } from "@/app/action/home";
 
 const Home = () => {
+  const [contents, setContents] = useState<SiteContent[]>([]);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      const data = await getSiteContent();
+      setContents(data);
+    };
+    fetchContent();
+  }, []);
+
+  const getContentValue = (section: string, key: string, defaultValue: string) => {
+    return contents.find(c => c.section === section && c.content_key === key)?.content_value || defaultValue;
+  };
+
   return (
     <div className="w-full">
       {/* Hero Section */}
@@ -24,23 +39,20 @@ const Home = () => {
             <div className="flex-1 max-w-2xl text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-black/10 text-black rounded-full text-sm font-bold mb-8">
                 <span className="w-2 h-2 bg-black rounded-full animate-pulse"></span>
-                Solusi Pendidikan Sekolah, Satu Ekosistem
+                {getContentValue("hero", "badge", "Solusi Pendidikan Sekolah, Satu Ekosistem")}
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#171717] leading-[1.1] mb-8">
-                Solusi Pendidikan Terintegrasi untuk Sekolah di Indonesia
+                {getContentValue("hero", "title", "Solusi Pendidikan Terintegrasi untuk Sekolah di Indonesia")}
               </h1>
               <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0">
-                Kami membantu sekolah memenuhi kebutuhan pembelajaran, literasi,
-                asesmen pendidikan, pengembangan kapasitas, sarana penunjang,
-                sistem operasional, dan publikasi digital—selaras dengan Dana
-                BOSP Reguler maupun sumber dana pendidikan sah lainnya.
+                {getContentValue("hero", "description", "Kami membantu sekolah memenuhi kebutuhan pembelajaran, literasi, asesmen pendidikan, pengembangan kapasitas, sarana penunjang, sistem operasional, dan publikasi digital—selaras dengan Dana BOSP Reguler maupun sumber dana pendidikan sah lainnya.")}
               </p>
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                 <button className="w-full sm:w-auto px-8 py-4 bg-black text-white font-bold rounded-2xl shadow-lg shadow-black/20 hover:bg-gray-800 transition-all transform hover:-translate-y-1">
-                  Konsultasi Kebutuhan Sekolah
+                  {getContentValue("hero", "cta_primary", "Konsultasi Kebutuhan Sekolah")}
                 </button>
                 <button className="w-full sm:w-auto px-8 py-4 bg-white text-black font-bold rounded-2xl border-2 border-black/10 hover:border-black hover:bg-gray-50 transition-all transform hover:-translate-y-1">
-                  Minta Katalog & Proposal
+                  {getContentValue("hero", "cta_secondary", "Minta Katalog & Proposal")}
                 </button>
               </div>
             </div>
@@ -63,9 +75,11 @@ const Home = () => {
                   <Users size={28} strokeWidth={2.5} />
                 </div>
                 <div>
-                  <p className="text-3xl font-black text-[#171717]">500+</p>
+                  <p className="text-3xl font-black text-[#171717]">
+                    {getContentValue("stats", "count", "500+")}
+                  </p>
                   <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">
-                    Sekolah Terlayani
+                    {getContentValue("stats", "label", "Sekolah Terlayani")}
                   </p>
                 </div>
               </div>

@@ -15,6 +15,11 @@ function initPool() {
   return pool;
 }
 export async function db() {
-  const connectionPool = initPool();
-  return connectionPool.getConnection();
+  try {
+    const connectionPool = initPool();
+    return await connectionPool.getConnection();
+  } catch (error) {
+    console.error("Database connection failed:", error);
+    throw new Error("Could not connect to database");
+  }
 }
