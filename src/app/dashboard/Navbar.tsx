@@ -1,15 +1,48 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { LogIn, Menu, X } from "lucide-react";
 
 interface NavbarProps {
   activeSection: string;
   onSectionChange: (section: string) => void;
 }
 
+import { getSiteContent, SiteContent } from "@/app/action/home";
+
 const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [contents, setContents] = useState<SiteContent[]>([]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    const fetchContent = async () => {
+      const data = await getSiteContent();
+      setContents(data);
+    };
+    fetchContent();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const getContentValue = (section: string, key: string, defaultValue: string) => {
+    return contents.find(c => c.section === section && c.content_key === key)?.content_value || defaultValue;
+  };
+
+  const getWaLink = () => {
+    const raw = getContentValue("footer", "wa_number", "62811500580");
+    const clean = raw.replace(/\D/g, "");
+    const final = clean.startsWith("0") ? "62" + clean.slice(1) : clean;
+    return `https://wa.me/${final}`;
+  };
+
   const menuItems = [
     { id: "beranda", label: "Beranda" },
     { id: "tentang-kami", label: "Tentang Kami" },
@@ -20,77 +53,110 @@ const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white shadow-sm border-b border-gray-100 flex items-center justify-between px-10 py-5">
-      {/* Logo Section */}
-      <div
-        className="flex items-center gap-3 cursor-pointer"
-        onClick={() => onSectionChange("beranda")}
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white border-b border-gray-100 ${isScrolled ? "py-2 shadow-sm" : "py-4"
+          }`}
       >
-        <div className="w-32 h-auto">
-          <Image
-            src="/Asset 2.jpg"
-            alt="PT MES Logo"
-            width={128}
-            height={48}
-            className="w-full h-auto"
-            priority
-          />
+        <div className="container mx-auto px-6 lg:px-12 flex items-center justify-between">
+          {/* Logo Section */}
+          <div
+            className="flex items-center cursor-pointer"
+            onClick={() => onSectionChange("beranda")}
+          >
+            <div className="h-10 px-3 py-1.5 border border-gray-200 rounded-lg flex items-center justify-center bg-white shadow-sm">
+              <Image
+                src="/Asset 2.jpg"
+                alt="PT Media Eduka Sentosa Logo"
+                width={140}
+                height={32}
+                className="h-full w-auto object-contain"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center gap-8">
+            {menuItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => onSectionChange(item.id)}
+                className={`text-sm px-4 py-2 transition-colors relative ${activeSection === item.id
+                  ? "text-gray-900 font-black"
+                  : "text-gray-600 hover:text-black font-semibold"
+                  }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex items-center gap-3">
+            <Link
+              href="/login"
+              className="hidden sm:flex items-center gap-2 px-7 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-full font-bold text-xs hover:bg-gray-50 transition-all active:scale-95 shadow-sm"
+            >
+              <LogIn size={16} />
+              Login
+            </Link>
+            <a
+              href={getWaLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-2 px-7 py-2.5 bg-[#434d5e] text-white rounded-full font-bold text-xs hover:bg-slate-800 transition-all active:scale-95 shadow-sm"
+            >
+              Hubungi Kami
+            </a>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              className="lg:hidden p-2 text-black hover:bg-gray-100 rounded-lg transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* Navigation Links */}
-      <div className="hidden lg:flex items-center gap-10">
-        {menuItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => onSectionChange(item.id)}
-            className={`font-medium transition-all duration-300 relative group py-2 ${activeSection === item.id
-                ? "text-black font-bold"
-                : "text-gray-500 hover:text-black"
-              }`}
-          >
-            {item.label}
-            <span
-              className={`absolute bottom-0 left-0 w-full h-0.5 bg-black transition-all duration-300 origin-left ${activeSection === item.id
-                  ? "scale-x-100"
-                  : "scale-x-0 group-hover:scale-x-100"
-                }`}
-            ></span>
-          </button>
-        ))}
-      </div>
-
-      {/* Action Buttons */}
-      <div className="flex items-center gap-5">
-        <Link
-          href="/login"
-          className="flex items-center gap-2 bg-black text-white px-8 py-2.5 rounded-full font-bold text-sm hover:bg-gray-800 transition-all shadow-md active:scale-95"
+        {/* Mobile Menu */}
+        <div
+          className={`lg:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 transition-all duration-300 overflow-hidden ${isMobileMenuOpen ? "max-h-screen py-6 shadow-xl" : "max-h-0"
+            }`}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-            <polyline points="10 17 15 12 10 7" />
-            <line x1="15" y1="12" x2="3" y2="12" />
-          </svg>
-          Login
-        </Link>
-        <Link
-          href="#contact"
-          className="bg-gray-700 text-white px-8 py-2.5 rounded-2xl font-bold text-sm hover:bg-gray-800 transition-all shadow-md active:scale-95"
-        >
-          Hubungi Kami
-        </Link>
-      </div>
-    </nav>
+          <div className="container mx-auto px-6 flex flex-col gap-4">
+            {menuItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  onSectionChange(item.id);
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`text-lg font-bold text-left py-2 ${activeSection === item.id ? "text-black border-l-4 border-black pl-4" : "text-slate-400 pl-4"
+                  }`}
+              >
+                {item.label}
+              </button>
+            ))}
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-50">
+              <Link href="/login" className="flex items-center justify-center gap-2 py-3 bg-black text-white rounded-full font-bold text-xs">
+                <LogIn size={16} /> Login
+              </Link>
+              <a
+                href={getWaLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-center py-3 bg-[#434d5e] text-white rounded-full font-bold text-xs"
+              >
+                Hubungi Kami
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 };
 

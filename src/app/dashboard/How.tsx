@@ -1,220 +1,161 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Search,
   Lightbulb,
   FileText,
-  Settings2,
-  ClipboardCheck,
-  CheckCircle2,
-  Users2,
-  BarChart4,
-  Zap,
+  Play,
+  CheckCircle,
+  BarChart,
+  Users,
   Eye,
-  MessageCircle,
+  Zap,
+  ArrowRight
 } from "lucide-react";
+import { getSiteContent, SiteContent } from "@/app/action/home";
+
+
 
 const How = () => {
-  const steps = [
-    {
-      id: "01",
-      title: "Pemetaan Kebutuhan",
-      icon: <Search size={20} />,
-      desc: "Kami melakukan analisis mendalam terhadap kebutuhan spesifik sekolah Anda, termasuk kondisi saat ini, tantangan, dan target yang ingin dicapai.",
-      items: [
-        "Konsultasi awal dengan stakeholder",
-        "Asesmen kondisi eksisting",
-        "Identifikasi prioritas kebutuhan",
-      ],
-      color: "gray",
-      iconColor: "bg-black",
-      lightBg: "bg-gray-50/50",
-    },
-    {
-      id: "02",
-      title: "Rekomendasi Solusi",
-      icon: <Lightbulb size={20} />,
-      desc: "Berdasarkan hasil pemetaan, kami menyusun rekomendasi solusi yang tepat dan sesuai dengan visi, misi, dan skala anggaran sekolah Anda.",
-      items: [
-        "Penyusunan proposal solusi",
-        "Presentasi dan diskusi penyesuaian",
-        "Estimasi biaya dan timeline",
-      ],
-      color: "gray-dark",
-      iconColor: "bg-gray-800",
-      lightBg: "bg-gray-100/50",
-    },
-    {
-      id: "03",
-      title: "Dokumen Pendukung",
-      icon: <FileText size={20} />,
-      desc: "Kami menyiapkan seluruh dokumen administratif yang diperlukan, termasuk proposal, SPK, dan dokumen lain yang sesuai dengan regulasi penggunaan dana pendidikan.",
-      items: [
-        "Penyusunan kontrak kerja",
-        "Administrasi legalitas lengkap",
-        "Penyiapan dokumen pelaporan awal",
-      ],
-      color: "black",
-      iconColor: "bg-gray-900",
-      lightBg: "bg-gray-50/50",
-    },
-    {
-      id: "04",
-      title: "Pelaksanaan",
-      icon: <Settings2 size={20} />,
-      desc: "Tim profesional kami melaksanakan program sesuai kesepakatan dengan standar kualitas tinggi dan pendampingan berkelanjutan.",
-      items: [
-        "Implementasi program di lapangan",
-        "Monitoring dan evaluasi berkala",
-        "Support teknis dan konsultasi",
-      ],
-      color: "gray-light",
-      iconColor: "bg-gray-600",
-      lightBg: "bg-gray-100/50",
-    },
-    {
-      id: "05",
-      title: "Laporan & Dokumentasi",
-      icon: <ClipboardCheck size={20} />,
-      desc: "Setiap program ditutup dengan laporan pelaksanaan lengkap dan dokumentasi yang siap untuk keperluan pelaporan dan evaluasi sekolah.",
-      items: [
-        "Laporan kegiatan sistematis",
-        "Dokumentasi visual dan naratif",
-        "Evaluasi akhir dan saran perbaikan",
-      ],
-      color: "gray",
-      iconColor: "bg-gray-700",
-      lightBg: "bg-gray-50/50",
-    },
-  ];
+  const [contents, setContents] = useState<SiteContent[]>([]);
 
-  const principles = [
-    {
-      title: "Terukur",
-      icon: <BarChart4 size={28} />,
-      desc: "Setiap program memiliki target dan indikator yang jelas.",
-    },
-    {
-      title: "Kolaboratif",
-      icon: <Users2 size={28} />,
-      desc: "Melibatkan stakeholder dalam setiap keputusan penting.",
-    },
-    {
-      title: "Transparan",
-      icon: <Eye size={28} />,
-      desc: "Komunikasi terbuka dan dokumentasi lengkap.",
-    },
-    {
-      title: "Responsif",
-      icon: <Zap size={28} />,
-      desc: "Cepat tanggap terhadap kebutuhan dan feedback.",
-    },
-  ];
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      const data = await getSiteContent();
+      setContents(data);
+    };
+    fetchContent();
+  }, []);
+
+  const getContentValue = (section: string, key: string, defaultValue: string) => {
+    return contents.find(c => c.section === section && c.content_key === key)?.content_value || defaultValue;
+  };
+
+  const getWaLink = () => {
+    const raw = getContentValue("footer", "wa_number", "62811500580");
+    const clean = raw.replace(/\D/g, "");
+    const final = clean.startsWith("0") ? "62" + clean.slice(1) : clean;
+    return `https://wa.me/${final}`;
+  };
+
+  const getSteps = () => {
+    const json = getContentValue("how", "steps_json", "[]");
+    try {
+      return JSON.parse(json);
+    } catch (e) {
+      return [];
+    }
+  };
+
+  const getPrinciples = () => {
+    const json = getContentValue("how", "principles_json", "[]");
+    try {
+      return JSON.parse(json);
+    } catch (e) {
+      return [];
+    }
+  };
+
+  const steps = getSteps();
+  const principles = getPrinciples();
+
+  const getStepIcon = (id: string) => {
+    switch (id) {
+      case "01": return <Search size={24} className="text-black" />;
+      case "02": return <Lightbulb size={24} className="text-black" />;
+      case "03": return <FileText size={24} className="text-black" />;
+      case "04": return <Play size={24} className="text-black" />;
+      case "05": return <CheckCircle size={24} className="text-black" />;
+      default: return <Search size={24} className="text-black" />;
+    }
+  };
+
+  const getPrincipleIcon = (iconName: string) => {
+    switch (iconName) {
+      case "BarChart": return <BarChart size={24} className="text-black" />;
+      case "Users": return <Users size={24} className="text-black" />;
+      case "Eye": return <Eye size={24} className="text-black" />;
+      case "Zap": return <Zap size={24} className="text-black" />;
+      default: return <BarChart size={24} className="text-black" />;
+    }
+  };
 
   return (
-    <div className="w-full bg-white">
-      {/* Hero Section */}
-      <section className="bg-black text-white pt-32 pb-24 text-center">
+    <div className="w-full bg-white font-sans text-black">
+      {/* Header Section (Image 5 top) */}
+      <section className="bg-black py-24 text-center">
         <div className="container mx-auto px-6">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
-            Cara Kerja Kami
-          </h1>
-          <p className="text-gray-400 text-lg font-medium opacity-90 max-w-2xl mx-auto">
-            Proses kolaborasi yang terstruktur, transparan, dan profesional
-            untuk memastikan hasil yang optimal bagi sekolah Anda.
+          <h2 className="text-4xl lg:text-5xl font-black text-white mb-6 tracking-tight uppercase">
+            {getContentValue("how", "title", "Cara Kerja Kami")}
+          </h2>
+          <p className="text-gray-400 text-xs font-semibold uppercase tracking-[0.3em] max-w-2xl mx-auto leading-relaxed">
+            {getContentValue("how", "subtitle", "Proses kolaborasi yang terstruktur, transparan, dan profesional untuk memastikan hasil yang optimal bagi sekolah Anda.")}
           </p>
         </div>
       </section>
 
-      {/* Intro Description */}
-      <section className="py-20 bg-[#f8fafc]/50">
-        <div className="container mx-auto px-6 text-center max-w-4xl">
-          <p className="text-gray-500 font-medium text-[15px] leading-relaxed italic">
-            "Kami percaya bahwa keberhasilan kemitraan dimulai dari proses yang
-            jelas dan terukur. Berikut adalah 5 tahapan kerja sama yang kami
-            terapkan untuk memastikan setiap program berjalan dengan baik."
+      {/* Intro Sentence (Image 5) */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6 text-center">
+          <p className="text-gray-400 font-normal text-base max-w-4xl mx-auto italic leading-relaxed">
+            "Kami percaya bahwa keberhasilan kemitraan dimulai dari proses yang jelas dan terukur. Berikut adalah 5 tahapan kerja sama yang kami terapkan untuk memastikan setiap program berjalan dengan baik."
           </p>
         </div>
       </section>
 
-      {/* Steps Flow Section */}
-      <section className="py-24 overflow-hidden">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="relative group/flow">
-            {/* Connecting Line (Horizontal on Desktop) */}
-            <div className="hidden lg:block absolute top-10 left-0 w-full h-0.5 bg-gray-100 -z-10 bg-linear-to-r from-transparent via-gray-100 to-transparent"></div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4">
-              {steps.map((step, i) => (
-                <div key={step.id} className="relative pt-12">
-                  {/* Step Icon Carrier */}
-                  <div className="absolute top-2 left-1/2 -translate-x-1/2 lg:left-1/2 lg:-translate-x-1/2 z-10">
-                    <div
-                      className={`w-16 h-16 rounded-2xl ${step.iconColor} shadow-xl flex items-center justify-center text-white transform hover:scale-110 transition-transform duration-500`}
-                    >
-                      {step.icon}
-                    </div>
-                  </div>
-
-                  {/* Step Card */}
-                  <div
-                    className={`h-full bg-white p-8 pt-10 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col group ${step.lightBg}`}
-                  >
-                    <div className="mb-6">
-                      <span className="text-4xl font-black text-white/50 block mb-2">
-                        {step.id}
-                      </span>
-                      <h3 className="text-[17px] font-extrabold text-[#171717] leading-tight mb-4">
-                        {step.title}
-                      </h3>
-                      <p className="text-[13px] text-gray-500 font-medium leading-relaxed mb-6">
-                        {step.desc}
-                      </p>
-                    </div>
-
-                    <ul className="space-y-3 mt-auto border-t border-gray-100 pt-6">
-                      {step.items.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <CheckCircle2
-                            size={12}
-                            className="text-gray-400 mt-1 shrink-0"
-                          />
-                          <span className="text-[11px] font-bold text-gray-400 leading-tight">
-                            {item}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
+      {/* Steps Grid - Row Selection (Image 5) */}
+      <section className="pb-32 bg-white">
+        <div className="container mx-auto px-6 lg:px-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            {steps.map((step: any, i: number) => (
+              <div key={i} className="flex flex-col p-10 bg-white border border-gray-100 rounded-4xl hover:border-black/10 transition-all group shadow-sm">
+                <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center mb-10 group-hover:rotate-6 transition-transform border border-gray-100 relative shadow-sm">
+                  {getStepIcon(step.id)}
+                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-black rounded-lg border-2 border-white flex items-center justify-center text-[10px] font-black text-white">
+                    {step.id}
                   </div>
                 </div>
-              ))}
-            </div>
+
+                <h3 className="text-xl font-black text-black mb-4 tracking-tight leading-tight">{step.title}</h3>
+                <p className="text-gray-400 font-normal text-xs leading-relaxed mb-8">{step.desc}</p>
+
+                <div className="mt-auto pt-6 border-t border-gray-50">
+                  <ul className="space-y-3">
+                    {(step.points || []).map((point: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-3 group/item">
+                        <div className="w-1.5 h-1.5 rounded-full bg-gray-200 mt-1.5 group-hover/item:bg-black transition-colors"></div>
+                        <span className="text-xs font-normal text-gray-400 group-hover/item:text-black transition-colors">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Principles Section */}
-      <section className="py-24 bg-[#f8fafc]">
-        <div className="container mx-auto px-6 lg:px-12 text-center">
-          <h2 className="text-3xl font-extrabold text-[#171717] mb-4">
+      {/* Principles Section (Image 5 bottom) */}
+      <section className="py-32 bg-gray-50/50">
+        <div className="container mx-auto px-6 lg:px-16 text-center">
+          <h2 className="text-3xl lg:text-4xl font-black text-black mb-4 tracking-tight uppercase">
             Prinsip Kerja Kami
           </h2>
-          <p className="text-gray-400 font-bold text-sm mb-16 tracking-wide">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-[0.4em] mb-20">
             Nilai-nilai yang kami pegang dalam setiap tahapan kolaborasi
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-            {principles.map((prinsip, i) => (
-              <div key={i} className="flex flex-col items-center space-y-4">
-                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-black shadow-sm border border-gray-100 hover:rotate-6 transition-transform">
-                  {prinsip.icon}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {principles.map((principle: any, i: number) => (
+              <div key={i} className="flex flex-col items-center group">
+                <div className="w-16 h-16 bg-white border border-gray-100 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:shadow-md transition-all group-hover:rotate-6">
+                  {getPrincipleIcon(principle.icon)}
                 </div>
-                <h4 className="text-lg font-bold text-[#171717]">
-                  {prinsip.title}
-                </h4>
-                <p className="text-gray-500 font-medium text-sm leading-relaxed max-w-50 mx-auto">
-                  {prinsip.desc}
+                <h4 className="text-lg font-black text-black mb-3">{principle.title}</h4>
+                <p className="text-gray-400 font-normal text-sm max-w-[200px] leading-relaxed">
+                  {principle.desc}
                 </p>
               </div>
             ))}
@@ -222,20 +163,34 @@ const How = () => {
         </div>
       </section>
 
-      {/* Final Contact Suggestion */}
-      <section className="py-20 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-black rounded-full text-xs font-black uppercase tracking-widest mb-8">
-          <MessageCircle size={14} />
-          Mulai Kerja Sama
+      {/* CTA Section (Image 5 bottom) */}
+      <section className="py-32 bg-white flex flex-col items-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 border border-gray-200 rounded-full mb-8">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-10"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-black"></span>
+          </span>
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-black">Mulai Kerja Sama</span>
         </div>
-        <h2 className="text-3xl font-extrabold text-[#171717] mb-8">
+
+        <h2 className="text-4xl lg:text-6xl font-black text-black mb-8 tracking-tighter text-center max-w-4xl">
           Siap Memulai Langkah Pertama?
         </h2>
-        <p className="text-gray-500 font-medium max-w-xl mx-auto mb-12">
-          Konsultasikan kebutuhan sekolah Anda secara gratis. Kami siap
-          mendengarkan dan memberikan solusi terbaik untuk institusi Anda.
+        <p className="text-gray-400 font-normal text-base text-center max-w-2xl mb-12">
+          Konsultasikan kebutuhan sekolah Anda secara gratis. Kami siap mendengarkan dan memberikan solusi terbaik untuk institusi Anda.
         </p>
+
+        <a
+          href={getWaLink()}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-4 px-10 py-5 bg-black text-white rounded-2xl font-black uppercase tracking-widest text-xs group hover:scale-[1.05] transition-all shadow-xl shadow-black/10"
+        >
+          Hubungi Kami Sekarang
+          <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+        </a>
       </section>
+
     </div>
   );
 };

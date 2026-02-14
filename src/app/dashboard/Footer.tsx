@@ -1,136 +1,139 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { Mail, Phone, ExternalLink } from "lucide-react";
 import Image from "next/image";
-import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
+import { getSiteContent, SiteContent } from "@/app/action/home";
+
+import ContactModal from "../components/ContactModal";
 
 const Footer = () => {
+  const [contents, setContents] = useState<SiteContent[]>([]);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      const data = await getSiteContent();
+      setContents(data);
+    };
+    fetchContent();
+  }, []);
+
+  const getContentValue = (section: string, key: string, defaultValue: string) => {
+    return contents.find(c => c.section === section && c.content_key === key)?.content_value || defaultValue;
+  };
+
+  const getWaLink = () => {
+    const raw = getContentValue("footer", "wa_number", "62811500580");
+    const clean = raw.replace(/\D/g, "");
+    const final = clean.startsWith("0") ? "62" + clean.slice(1) : clean;
+    return `https://wa.me/${final}`;
+  };
+
+  const menuItems = [
+    { id: "beranda", label: "Beranda" },
+    { id: "tentang-kami", label: "Tentang Kami" },
+    { id: "solusi", label: "Solusi & Ekosistem" },
+    { id: "mengapa-kami", label: "Mengapa Kami" },
+    { id: "cara-kerja", label: "Cara Kerja" },
+    { id: "jangkauan", label: "Jangkauan" },
+  ];
+
   return (
-    <footer className="bg-gray-400 text-gray-800 pt-24 pb-12 border-t border-gray-300">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-20">
-          {/* Company Info */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="w-40 h-auto">
-              <Image
-                src="/Asset 2.jpg"
-                alt="PT MES Logo"
-                width={160}
-                height={60}
-                className="w-full h-auto mix-blend-multiply"
-                priority
-              />
-            </div>
-
-            <p className="text-gray-600 font-medium leading-[1.8] max-w-md text-[15px]">
-              Solusi pendidikan terintegrasi untuk sekolah di Indonesia. Kami
-              menghadirkan ekosistem digital yang handal untuk memajukan
-              literasi dan administrasi pendidikan nasional.
-            </p>
-
-            <div className="flex items-center gap-2 group cursor-pointer">
-              <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center group-hover:bg-black/10 transition-colors">
-                <div className="w-2 h-2 bg-black rounded-full"></div>
-              </div>
-              <p className="text-gray-500 font-bold text-sm">
-                Bagian dari{" "}
-                <span className="text-gray-900 group-hover:text-black transition-colors">
-                  Magau Group
-                </span>
-              </p>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div className="lg:col-span-3 lg:ml-auto">
-            <h3 className="font-bold text-lg mb-8 relative inline-block text-gray-900">
-              Navigasi
-              <span className="absolute -bottom-2 left-0 w-8 h-1 bg-black rounded-full"></span>
-            </h3>
-            <ul className="space-y-4">
-              {[
-                "Beranda",
-                "Tentang Kami",
-                "Solusi & Ekosistem",
-                "Mengapa Kami",
-                "Cara Kerja",
-                "Jangkauan",
-              ].map((item) => (
-                <li key={item}>
-                  <Link
-                    href={`#${item.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")}`}
-                    className="text-gray-600 hover:text-black transition-all font-semibold text-[15px] flex items-center gap-2 group"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-gray-400 group-hover:bg-black transition-colors"></span>
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact & Support */}
-          <div className="lg:col-span-4 lg:ml-auto w-full max-w-sm">
-            <h3 className="font-bold text-lg mb-8 relative inline-block text-gray-900">
-              Kontak & Bantuan
-              <span className="absolute -bottom-2 left-0 w-8 h-1 bg-black rounded-full"></span>
-            </h3>
-            <div className="space-y-6">
-              <button className="w-full flex items-center justify-between px-6 py-4 bg-[#000000] hover:bg-gray-800 text-white font-bold rounded-2xl transition-all shadow-xl shadow-black/10 group">
-                Hubungi Kami Sekarang
-                <ExternalLink
-                  size={18}
-                  className="group-hover:translate-x-1 transition-transform"
+    <>
+      <footer className="bg-[#a3adbb] text-[#4b5563] pt-20 pb-10 font-sans">
+        <div className="container mx-auto px-6 lg:px-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-20 mb-20">
+            {/* Brand Section */}
+            <div className="lg:col-span-5 space-y-8">
+              <div className="inline-block p-1.5 bg-transparent border border-gray-500 rounded-lg">
+                <Image
+                  src="/Asset 2.jpg"
+                  alt="PT Media Eduka Sentosa Logo"
+                  width={140}
+                  height={35}
+                  className="object-contain"
                 />
-              </button>
-
-              <div className="space-y-4 pt-2">
-                <div className="flex items-center gap-4 text-gray-600 group cursor-pointer hover:text-gray-900 transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-gray-300 flex items-center justify-center group-hover:bg-black/10 transition-colors">
-                    <Mail size={18} className="group-hover:text-black" />
-                  </div>
-                  <span className="text-sm font-semibold">
-                    admin@ptmes.com
-                  </span>
+              </div>
+              <p className="text-[#334155]/80 text-sm font-normal leading-relaxed max-w-sm italic">
+                {getContentValue("footer", "short_profile", "Solusi pendidikan terintegrasi untuk sekolah di Indonesia. Kami menghadirkan ekosistem digital yang handal untuk memajukan literasi dan administrasi pendidikan nasional.")}
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center shadow-sm">
+                  <div className="w-2 h-2 rounded-full bg-black"></div>
                 </div>
-                <div className="flex items-center gap-4 text-gray-600 group cursor-pointer hover:text-gray-900 transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-gray-300 flex items-center justify-center group-hover:bg-black/10 transition-colors">
-                    <Phone size={18} className="group-hover:text-black" />
+                <span className="text-[#334155]/80 text-xs font-medium">Bagian dari <span className="font-bold text-black">Magau Group</span></span>
+              </div>
+            </div>
+
+            {/* Navigation Section */}
+            <div className="lg:col-span-3 space-y-8">
+              <div className="space-y-2">
+                <h3 className="text-black font-bold text-sm uppercase tracking-tight">Navigasi</h3>
+                <div className="w-6 h-0.5 bg-black"></div>
+              </div>
+              <ul className="grid grid-cols-1 gap-4">
+                {menuItems.map((item) => (
+                  <li key={item.id}>
+                    <a href="#" className="text-[#334155]/70 hover:text-black transition-colors text-sm font-medium">
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact Section */}
+            <div className="lg:col-span-4 space-y-10">
+              <div className="space-y-2">
+                <h3 className="text-black font-bold text-sm uppercase tracking-tight">Kontak & Bantuan</h3>
+                <div className="w-6 h-0.5 bg-black"></div>
+              </div>
+
+              <a
+                href={getWaLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between w-full max-w-[280px] px-7 py-4 bg-black text-white rounded-2xl font-bold text-xs hover:scale-[1.02] transition-transform shadow-xl shadow-black/10 group"
+              >
+                <span>Hubungi Kami Sekarang</span>
+                <ExternalLink size={14} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+              </a>
+
+              <div className="space-y-6">
+                <div className="flex items-center gap-4 group">
+                  <div className="w-9 h-9 bg-white/40 rounded-xl flex items-center justify-center border border-white/20 group-hover:bg-white transition-all">
+                    <Mail size={16} className="text-black/60" />
                   </div>
-                  <span className="text-sm font-semibold">+62 811-5005-80</span>
+                  <p className="text-[#334155]/80 text-sm font-normal">
+                    {getContentValue("footer", "email", "admin@ptmes.com")}
+                  </p>
+                </div>
+                <div className="flex items-center gap-4 group">
+                  <div className="w-9 h-9 bg-white/40 rounded-xl flex items-center justify-center border border-white/20 group-hover:bg-white transition-all">
+                    <Phone size={16} className="text-black/60" />
+                  </div>
+                  <p className="text-[#334155]/80 text-sm font-normal">
+                    {getContentValue("footer", "phone", "+62 811-500-580")}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Divider */}
-        <div className="w-full h-px bg-gray-300 mb-8"></div>
-
-        {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-gray-500 text-sm font-bold tracking-tight">
-            © 2026 <span className="text-gray-700">PT Media Eduka Sentosa</span>
-            . All rights reserved.
-          </p>
-          <div className="flex items-center gap-8">
-            <Link
-              href="#"
-              className="text-gray-500 hover:text-gray-900 text-xs font-bold transition-colors uppercase tracking-widest"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="#"
-              className="text-gray-500 hover:text-gray-900 text-xs font-bold transition-colors uppercase tracking-widest"
-            >
-              Terms of Service
-            </Link>
+          {/* Bottom Bar */}
+          <div className="pt-8 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-[#334155]/70 font-normal text-xs tracking-wide">
+              &copy; {new Date().getFullYear()} <span className="text-black/90 font-semibold">PT Media Eduka Sentosa.</span> All rights reserved.
+            </p>
+            <div className="flex gap-8 text-[9px] font-semibold tracking-widest opacity-60">
+              <a href="#" className="hover:text-black transition-colors uppercase">Privacy Policy</a>
+              <a href="#" className="hover:text-black transition-colors uppercase">Terms of Service</a>
+            </div>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 };
 
