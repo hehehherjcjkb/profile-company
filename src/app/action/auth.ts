@@ -74,9 +74,11 @@ export async function login(form: FormData) {
     const token = await createToken({ email: user.email });
     await setAuthCookie(token);
     revalidatePath("/admin");
-  } catch (error) {
+  } catch (error: any) {
     console.error("Login error:", error);
-    return { error: "Terjadi kesalahan saat login atau koneksi database gagal" };
+    // Diagnostic mode: show the actual error to the user temporarily
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return { error: `Database Error: ${errorMessage.substring(0, 100)}` };
   }
   redirect("/admin");
 }
