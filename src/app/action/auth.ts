@@ -1,4 +1,5 @@
 "use server";
+console.log("Auth Action Loaded - Version: 2026-03-05 12:08");
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { createToken } from "@/lib/jwt";
@@ -42,7 +43,7 @@ export async function register(form: FormData) {
     revalidatePath("/register");
   } catch (error) {
     console.error("Register error:", error);
-    return { error: "Terjadi kesalahan saat pendaftaran atau koneksi database gagal" };
+    return { error: "[Register Error] Terjadi kesalahan saat pendaftaran atau koneksi database gagal" };
   }
 }
 
