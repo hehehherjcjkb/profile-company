@@ -76,9 +76,8 @@ export async function login(form: FormData) {
     revalidatePath("/admin");
   } catch (error: any) {
     console.error("Login error:", error);
-    // Diagnostic mode: show the actual error to the user temporarily
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return { error: `Database Error: ${errorMessage.substring(0, 100)}` };
+    const msg = error?.message || error?.code || String(error);
+    return { error: `[DB Error] ${msg.substring(0, 150)}` };
   }
   redirect("/admin");
 }
